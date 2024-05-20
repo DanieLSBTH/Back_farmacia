@@ -2,8 +2,10 @@ module.exports = app => {
   const db = require("../models");  
   const Usuario = db.usuario;
   const usuarios = require("../controllers/usuario.controller.js");
-    const router = require("express").Router();
-    const bcrypt = require('bcrypt');
+  const router = require("express").Router();
+  const bcrypt = require('bcrypt');
+  const express = require('express');
+  const session = require('express-session');
    
 
     // Crear un nuevo Usuario
@@ -13,6 +15,12 @@ module.exports = app => {
 
 // Iniciar sesión
 // Iniciar sesión
+app.use(session({
+  secret: 'your-secret-key', // Clave secreta para firmar la cookie de sesión
+  resave: false,
+  saveUninitialized: true
+}));
+
 router.post('/login', async (req, res) => {
   try {
     const { usuario, contraseña } = req.body;
@@ -38,6 +46,12 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.post('/logout', (req, res) => {
+  // Eliminar la sesión del usuario
+  req.session = null;
+
+  res.json({ success: true, message: 'Cierre de sesión exitoso' });
+});
 
     // Recuperar todos los Usuarios
     router.get("/", usuarios.findAll);
@@ -56,4 +70,4 @@ router.post('/login', async (req, res) => {
   
     app.use("/api/usuario", router);
   };
-  
+ 

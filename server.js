@@ -5,6 +5,7 @@ const multer = require("multer");
 const sharp = require("sharp");
 const fs = require("fs");
 const app = express();
+const session = require('express-session');
 
 var corsOptions = {
   origin: "http://localhost:3000"
@@ -19,7 +20,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/uploads', express.static('uploads'));
-
+app.use(session({
+  secret: 'your-secret-key', // Clave secreta para firmar la cookie de sesión
+  resave: false,
+  saveUninitialized: true
+}));
 const db = require("./app/models");
 db.sequelize.sync()
   .then(() => {
@@ -49,8 +54,11 @@ require("./app/routes/producto.routes")(app);
 require("./app/routes/factura.routes")(app);
 require("./app/routes/factura_detalle.routes")(app);
 require("./app/routes/usuario.routes")(app);
+require("./app/routes/carrito.routes")(app);
+require("./app/routes/carrito_detalle.routes")(app)
 
-
+const usuarioRoutes = require("./app/routes/usuario.routes");
+app.use("/api/usuario", usuarioRoutes);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
