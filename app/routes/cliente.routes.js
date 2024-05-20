@@ -20,6 +20,9 @@ router.delete("/:id_cliente", clientes.delete);
 
 // Delete all Clientes
 router.delete("/", clientes.deleteAll);
+ // Retrieve a single Cliente with NIT
+ router.get("/buscar/nit/:nit", clientes.findByNIT);  // Nueva ruta
+
 
 app.use("/api/cliente", router);
 };

@@ -6,7 +6,7 @@ const Op = db.Sequelize.Op;
 // Crear y Guardar un Nuevo Usuario
 exports.create = (req, res) => {
   // Verificar que se proporcionen todos los campos requeridos
-  if (!req.body.usuario || !req.body.contraseña || !req.body.email || !req.body.nombre || !req.body.apellido || !req.body.direccion || !req.body.telefono) {
+  if (!req.body.usuario || !req.body.contraseña || !req.body.email || !req.body.nombre || !req.body.apellido || !req.body.direccion || !req.body.telefono || !req.body.rol) {
     res.status(400).send({
       message: "All fields are required!"
     });
@@ -24,7 +24,9 @@ exports.create = (req, res) => {
     nombre: req.body.nombre,
     apellido: req.body.apellido,
     direccion: req.body.direccion,
-    telefono: req.body.telefono
+    telefono: req.body.telefono,
+    rol: req.body.rol
+    
   };
 
   // Guardar el usuario en la base de datos

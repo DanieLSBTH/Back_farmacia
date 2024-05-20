@@ -118,7 +118,26 @@ exports.delete = (req, res) => {
       });
     });
 };
+// Buscar un cliente por NIT
+exports.findByNIT = (req, res) => {
+  const nit = req.params.nit;
 
+  Cliente.findOne({ where: { nit: nit } })
+    .then(data => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cliente con NIT=${nit} no encontrado.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error al buscar Cliente con NIT=" + nit
+      });
+    });
+};
 // Delete all Clientes from the database.
 exports.deleteAll = (req, res) => {
   Cliente.destroy({

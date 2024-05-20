@@ -21,6 +21,7 @@ app.use(session({
   saveUninitialized: true
 }));
 
+router.post("/", usuarios.create);
 router.post('/login', async (req, res) => {
   try {
     const { usuario, contraseña } = req.body;

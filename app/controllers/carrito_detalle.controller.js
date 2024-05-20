@@ -29,12 +29,25 @@ exports.create = (req, res) => {
           cantidad: cantidad,
           precio_unitario: producto.precio_venta,
         })
-        .then((carritoDetalle) => {
-          res.send(carritoDetalle);
+        
+        .then((CarritoDetalle) => {
+          // Actualizar el stock del producto
+          return Producto.update(
+            { stock: Sequelize.literal(`stock - ${cantidad}`) },
+            { where: { id_producto: id_producto } }
+          )
+          .then(() => {
+            res.send(CarritoDetalle);
+          })
+          .catch((err) => {
+            res.status(500).send({
+              message: err.message || 'Error al actualizar el stock del producto.',
+            });
+          });
         })
         .catch((err) => {
           res.status(500).send({
-            message: err.message || 'Error al crear el registro en carrito_detalle.',
+            message: err.message || 'Error al crear el registro en factura_detalle.',
           });
         });
       }

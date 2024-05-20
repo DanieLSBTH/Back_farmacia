@@ -28,12 +28,8 @@ module.exports = (sequelize, Sequelize) => {
     },
     telefono: {
       type: Sequelize.STRING
-    }, id_rol: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: 'roles', // Nombre de la tabla de roles
-        key: 'id_rol' // Clave primaria de la tabla de roless
-      }
+    }, rol: {
+      type: Sequelize.STRING
     }
   });
 
