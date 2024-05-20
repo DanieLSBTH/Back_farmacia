@@ -39,8 +39,8 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos' });
     }
 
-    // Si la autenticación es exitosa, devolver un mensaje de éxito
-    return res.json({ success: true, message: 'Inicio de sesión exitoso' });
+   // Si la autenticación es exitosa, devolver un mensaje de éxito y el rol del usuario
+   return res.json({ success: true, message: 'Inicio de sesión exitoso', user: { id: user.id, username: user.usuario, role: user.rol } });
   } catch (error) {
     console.error('Error al iniciar sesión:', error);
     return res.status(500).json({ success: false, message: 'Error en el servidor' });
