@@ -8,7 +8,7 @@ const app = express();
 const session = require('express-session');
 
 var corsOptions = {
-  origin: "https://tu-farmacia-en-linea.onrender.com"
+  origin: "https://front24.onrender.com"
 };
 
 app.use(cors(corsOptions));
