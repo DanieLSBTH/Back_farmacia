@@ -17,6 +17,10 @@ exports.create = (req, res) => {
     id_cliente: req.body.id_cliente,
     fecha_creacion: req.body.fecha_creacion || null,
     estado: req.body.estado || 'abierto',
+    departamento: req.body.departamento ,
+    direccion: req.body.direccion,
+    metodo_de_pago: req.body.metodo_de_pago,
+
   };
 
   // Guardar el carrito en la base de datos

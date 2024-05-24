@@ -16,6 +16,15 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING(20),
         defaultValue: 'abierto',
       },
+      departamento: {
+        type: Sequelize.STRING
+      },
+      direccion: {
+        type: Sequelize.STRING
+      },
+      metodo_de_pago: {
+        type: Sequelize.STRING,
+      },
     });
   
     // Definir la relación con la tabla de Clientes
